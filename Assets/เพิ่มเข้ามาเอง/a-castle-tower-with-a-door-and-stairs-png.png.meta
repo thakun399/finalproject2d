@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      a-castle-tower-with-a-door-and-stairs-png_0: 766161638342167088
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
