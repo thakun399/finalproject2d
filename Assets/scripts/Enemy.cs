@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     private int currentHealth;
 
     public int scoreValue = 10; // 💥 คะแนนของศัตรูตัวนี้
-    private GameController gameController;
+    private GameManager GameManager;
 
     void Awake()
     {
@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        gameController = FindObjectOfType<GameController>();
+        GameManager = FindObjectOfType<GameManager>();
     }
 
     public void TakeDamage(int amount)
@@ -35,9 +35,9 @@ public class Enemy : MonoBehaviour
         Debug.Log($"{gameObject.name} died!");
 
         // 💥 เพิ่มคะแนนเมื่อศัตรูตาย
-        if (gameController != null)
+        if (GameManager != null)
         {
-            gameController.AddScore(scoreValue);
+            GameManager.AddScore(scoreValue);
         }
 
         Destroy(gameObject);
