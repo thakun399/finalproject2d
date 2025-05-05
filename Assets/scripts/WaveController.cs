@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class WaveController : MonoBehaviour
 {
     public Transform[] spawnPoints;
@@ -7,6 +7,17 @@ public class WaveController : MonoBehaviour
     private Wave currentWave;
     private int enemiesSpawned = 0;
     private float nextSpawnTime = 0f;
+    
+    private List<GameObject> aliveEnemies = new List<GameObject>(); // ✅ แบบนี้ถูก
+
+    public bool AllEnemiesDead()
+    {
+        if (currentWave == null) return false; // ป้องกัน null
+
+        aliveEnemies.RemoveAll(e => e == null);
+        return enemiesSpawned >= currentWave.enemyCount && aliveEnemies.Count == 0;
+    }
+
 
     public bool IsComplete()
     {
@@ -18,6 +29,7 @@ public class WaveController : MonoBehaviour
         currentWave = wave;
         enemiesSpawned = 0;
         nextSpawnTime = Time.time;
+        aliveEnemies = new List<GameObject>(); // reset list ทุกเวฟ
     }
 
     void Update()
@@ -42,5 +54,8 @@ public class WaveController : MonoBehaviour
             spawnPoints[spawnIndex].position,
             spawnPoints[spawnIndex].rotation
         );
+
+        aliveEnemies.Add(enemy);
     }
+
 }

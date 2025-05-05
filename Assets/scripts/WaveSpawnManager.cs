@@ -1,52 +1,81 @@
 using UnityEngine;
+using TMPro;
+using System.Collections;
 
-public class WaveSpawnManagerExam04 : MonoBehaviour
+public class WaveSpawnManager : MonoBehaviour
 {
-    public Wave[] waveConfigurations;
+   public Wave[] waveConfigurations;
     public WaveController waveController;
+
+    public TextMeshProUGUI waveText;
+    public TextMeshProUGUI countdownText;
 
     public bool enableWaveCycling;
 
     private int currentWave = 0;
     private float waveEndTime = 0f;
     private bool waitingForNextWave = false;
+    private bool showingWaveLabel = false;
 
     void Start()
     {
-        waveController.StartWave(waveConfigurations[currentWave]);
+        StartCoroutine(ShowWaveLabelAndStart(currentWave));
     }
 
     void Update()
     {
-        // รอให้ spawn ครบก่อนเริ่มจับเวลา waveInterval
-        if (waveController.IsComplete() && !waitingForNextWave)
+        if (waitingForNextWave)
+        {
+            float timeLeft = waveEndTime - Time.time;
+            countdownText.text = $"Next Wave In: {Mathf.CeilToInt(timeLeft)}";
+
+            if (Time.time >= waveEndTime)
+            {
+                countdownText.text = "";
+                waitingForNextWave = false;
+
+                currentWave++;
+                if (currentWave >= waveConfigurations.Length)
+                {
+                    if (enableWaveCycling)
+                    {
+                        currentWave = 0;
+                        Debug.Log("Wave Cycling: Restarting from Wave 1");
+                    }
+                    else
+                    {
+                        Debug.Log("All waves completed!");
+                        enabled = false;
+                        return;
+                    }
+                }
+
+                StartCoroutine(ShowWaveLabelAndStart(currentWave));
+            }
+        }
+        if (waveController.AllEnemiesDead() && !waitingForNextWave && !showingWaveLabel)
         {
             waveEndTime = Time.time + waveConfigurations[currentWave].waveInterval;
             waitingForNextWave = true;
         }
+    }
 
-        // ถ้ารอจนถึงเวลา waveInterval แล้ว ค่อยเริ่มเวฟถัดไป
-        if (waitingForNextWave && Time.time >= waveEndTime)
-        {
-            currentWave++;
+    IEnumerator ShowWaveLabelAndStart(int waveIndex)
+    {
+        showingWaveLabel = true;
 
-            if (currentWave >= waveConfigurations.Length)
-            {
-                if (enableWaveCycling)
-                {
-                    currentWave = 0;
-                    Debug.Log("Wave Cycling: Restarting from Wave 1");
-                }
-                else
-                {
-                    Debug.Log("All waves completed!");
-                    enabled = false; // ปิด script นี้
-                    return;
-                }
-            }
+        if (waveIndex == waveConfigurations.Length - 1)
+            waveText.text = "Boss!";
+        else
+            waveText.text = $"Wave {waveIndex + 1}";
 
-            waveController.StartWave(waveConfigurations[currentWave]);
-            waitingForNextWave = false;
-        }
+        waveText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(2f); // เวลาโชว์ข้อความ
+
+        waveText.gameObject.SetActive(false);
+        waveController.StartWave(waveConfigurations[waveIndex]);
+
+        showingWaveLabel = false;
     }
 }
