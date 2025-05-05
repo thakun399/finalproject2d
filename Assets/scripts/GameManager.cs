@@ -8,13 +8,17 @@ public class GameManager : MonoBehaviour
 
     private bool isGameOver = false;
 
-    [Header("Game Over UI")]
+    [Header("UI Elements")]
     public GameObject gameOverUI;
-    public TMP_Text finalScoreText; // ← Text ที่แสดงคะแนนตอนจบ
+    public GameObject victoryUI;  
+    public TMP_Text finalScoreText;
 
     [Header("Score")]
     public int score = 0;
     public TMP_Text scoreText;
+
+    [Header("Win Condition")]
+    public int scoreToWin = 2000;
 
     void Awake()
     {
@@ -25,6 +29,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         UpdateScoreText();
+        victoryUI.SetActive(false);  
+        gameOverUI.SetActive(false);  
     }
 
     public void GameOver()
@@ -35,12 +41,27 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
 
         if (gameOverUI != null)
-            gameOverUI.SetActive(true);
-
+            gameOverUI.SetActive(true);  
         if (finalScoreText != null)
             finalScoreText.text = "Final Score: " + score.ToString();
 
         Debug.Log("Game Over!");
+    }
+
+    public void WinGame()
+    {
+        if (isGameOver) return;
+
+        isGameOver = true;
+        Time.timeScale = 0f;
+
+        if (victoryUI != null)
+            victoryUI.SetActive(true); 
+
+        if (finalScoreText != null)
+            finalScoreText.text = "🎉 VICTORY!\nFinal Score: " + score.ToString();  
+
+        Debug.Log("You Win!");
     }
 
     public void RestartGame()
@@ -53,6 +74,11 @@ public class GameManager : MonoBehaviour
     {
         score += value;
         UpdateScoreText();
+
+        if (score >= scoreToWin)
+        {
+            WinGame();  
+        }
     }
 
     void UpdateScoreText()
@@ -61,5 +87,3 @@ public class GameManager : MonoBehaviour
             scoreText.text = "Score: " + score.ToString();
     }
 }
-
-
