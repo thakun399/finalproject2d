@@ -9,7 +9,7 @@ public class Projectile2D : MonoBehaviour
     [SerializeField] float cooldownTime = 1f; // เวลาคูลดาวน์ (ระยะเวลารอระหว่างการยิง)
     private float nextFireTime = 0f; // เวลาที่สามารถยิงได้ถัดไป
     
-    [SerializeField] AudioClip shootSound;//ตรงนี้เพิ่มโดยกั้ง
+    [SerializeField] AudioClip shootSound;//กั้ง
     private AudioSource audioSource;
     
     void Start()//ตรงนี้เพิ่มโดยกั้ง
