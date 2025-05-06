@@ -4,7 +4,7 @@ using System.Collections;
 
 public class WaveSpawnManager : MonoBehaviour
 {
-   public Wave[] waveConfigurations;
+    public Wave[] waveConfigurations;
     public WaveController waveController;
 
     public TextMeshProUGUI waveText;
@@ -17,8 +17,11 @@ public class WaveSpawnManager : MonoBehaviour
     private bool waitingForNextWave = false;
     private bool showingWaveLabel = false;
 
+    private GameManager gameManager;
+
     void Start()
     {
+        gameManager = GameManager.Instance;
         StartCoroutine(ShowWaveLabelAndStart(currentWave));
     }
 
@@ -40,11 +43,9 @@ public class WaveSpawnManager : MonoBehaviour
                     if (enableWaveCycling)
                     {
                         currentWave = 0;
-                        Debug.Log("Wave Cycling: Restarting from Wave 1");
                     }
                     else
                     {
-                        Debug.Log("All waves completed!");
                         enabled = false;
                         return;
                     }
@@ -53,8 +54,16 @@ public class WaveSpawnManager : MonoBehaviour
                 StartCoroutine(ShowWaveLabelAndStart(currentWave));
             }
         }
+
         if (waveController.AllEnemiesDead() && !waitingForNextWave && !showingWaveLabel)
         {
+            if (currentWave == waveConfigurations.Length - 1)
+            {
+                gameManager.WinGame();
+                enabled = false;
+                return;
+            }
+
             waveEndTime = Time.time + waveConfigurations[currentWave].waveInterval;
             waitingForNextWave = true;
         }
@@ -70,12 +79,10 @@ public class WaveSpawnManager : MonoBehaviour
             waveText.text = $"Wave {waveIndex + 1}";
 
         waveText.gameObject.SetActive(true);
-
-        yield return new WaitForSeconds(2f); // เวลาโชว์ข้อความ
-
+        yield return new WaitForSeconds(2f);
         waveText.gameObject.SetActive(false);
-        waveController.StartWave(waveConfigurations[waveIndex]);
 
+        waveController.StartWave(waveConfigurations[waveIndex]);
         showingWaveLabel = false;
     }
 }

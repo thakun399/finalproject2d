@@ -74,11 +74,7 @@ public class GameManager : MonoBehaviour
     {
         score += value;
         UpdateScoreText();
-
-        if (score >= scoreToWin)
-        {
-            WinGame();  
-        }
+        
     }
 
     void UpdateScoreText()
