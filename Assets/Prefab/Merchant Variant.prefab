@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 3
-  maxHealth: 500
+  maxHealth: 350
   scoreValue: 50
 --- !u!114 &1479706277114296574
 MonoBehaviour:
