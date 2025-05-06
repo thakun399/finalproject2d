@@ -8,6 +8,14 @@ public class Projectile2D : MonoBehaviour
 
     [SerializeField] float cooldownTime = 1f; // เวลาคูลดาวน์ (ระยะเวลารอระหว่างการยิง)
     private float nextFireTime = 0f; // เวลาที่สามารถยิงได้ถัดไป
+    
+    [SerializeField] AudioClip shootSound;//ตรงนี้เพิ่มโดยกั้ง
+    private AudioSource audioSource;
+    
+    void Start()//ตรงนี้เพิ่มโดยกั้ง
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -37,7 +45,9 @@ public class Projectile2D : MonoBehaviour
 
                 //add projectile velocity vector to the bullet rigidbody
                 shootBullet.velocity = projectileVelocity; //ใช้ velocity แทน linearVelocity
+                audioSource.PlayOneShot(shootSound);//ตรงนี้เพิ่มโดยกั้ง
             }
+            
         }
     }
 
@@ -54,4 +64,5 @@ public class Projectile2D : MonoBehaviour
 
         return projectileVelocity;
     }
+    
 }

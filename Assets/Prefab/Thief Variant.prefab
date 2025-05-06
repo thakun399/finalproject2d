@@ -145,6 +145,7 @@ MonoBehaviour:
   damage: 1
   maxHealth: 20
   scoreValue: 5
+  hitBaseSound: {fileID: 8300000, guid: 579e4b9fbd13a834d8a0cf7ed2ccd181, type: 3}
 --- !u!114 &7580002595603074008
 MonoBehaviour:
   m_ObjectHideFlags: 0

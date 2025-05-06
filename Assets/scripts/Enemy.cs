@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
 
     public int scoreValue = 10; // 💥 คะแนนของศัตรูตัวนี้
     private GameManager GameManager;
+    public AudioClip hitBaseSound; // เสียงตอนมอนชนฐาน
 
     void Awake()
     {
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
             Die();
         }
     }
+    
 
     private void Die()
     {
@@ -38,7 +40,10 @@ public class Enemy : MonoBehaviour
         if (GameManager != null)
         {
             GameManager.AddScore(scoreValue);
+            //  เรียกเสียงมอนตาย
+            GameManager.PlayMonsterDeathSound();
         }
+        
 
         Destroy(gameObject);
     }
@@ -51,6 +56,10 @@ public class Enemy : MonoBehaviour
             if (tower != null)
             {
                 tower.TakeDamage(damage);
+            }
+            if (hitBaseSound != null)
+            {
+                AudioSource.PlayClipAtPoint(hitBaseSound, transform.position, 2.5f);
             }
 
             Destroy(gameObject); // ทำลายตัวเองหลังจากชน

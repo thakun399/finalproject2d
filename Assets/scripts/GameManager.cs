@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverUI;
     public GameObject victoryUI;  
     public TMP_Text finalScoreText;
+    
+    [Header("Audio")]//กั้ง
+    public AudioClip monsterDeathSound;
+    private AudioSource audioSource;
 
     [Header("Score")]
     public int score = 0;
@@ -31,6 +35,7 @@ public class GameManager : MonoBehaviour
         UpdateScoreText();
         victoryUI.SetActive(false);  
         gameOverUI.SetActive(false);  
+        audioSource = GetComponent<AudioSource>();//กั้ง
     }
 
     public void GameOver()
@@ -81,5 +86,12 @@ public class GameManager : MonoBehaviour
     {
         if (scoreText != null)
             scoreText.text = "Score: " + score.ToString();
+    }
+    public void PlayMonsterDeathSound()//กั้ง
+    {
+        if (monsterDeathSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(monsterDeathSound);
+        }
     }
 }
