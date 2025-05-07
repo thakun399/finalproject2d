@@ -7,10 +7,14 @@ public class SuperPower : MonoBehaviour
 
     
     public ItemSpawnToggle respawner;  
+    
+    public AudioClip hitSound; 
+    private AudioSource audioSource; 
 
     void Start()
     {
         currentHP = maxHP;
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     public void TakeDamage(int amount)
@@ -37,6 +41,10 @@ public class SuperPower : MonoBehaviour
             Enemy enemy = collision.GetComponent<Enemy>();
             if (enemy != null)
             {
+                if (hitSound != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(hitSound);
+                }
                 TakeDamage(enemy.damage); 
                 
             }
