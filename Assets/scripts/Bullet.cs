@@ -23,18 +23,18 @@ public class Bullet : MonoBehaviour
                 enemy.TakeDamage(damage);
             }
 
-            // เล่นเสียงชนศัตรู
+           
             if (hitSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(hitSound);
             }
 
-            // ปิดภาพ/Collider เพื่อป้องกันโดนซ้ำ
+           
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<Collider2D>().enabled = false;
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
-            // รอให้เสียงเล่นเสร็จ แล้วค่อยลบกระสุน
+            
             Destroy(gameObject, 1f);
         }
     }

@@ -6,9 +6,9 @@ public class Enemy : MonoBehaviour
     public int maxHealth = 40;
     private int currentHealth;
 
-    public int scoreValue = 10; // 💥 คะแนนของศัตรูตัวนี้
+    public int scoreValue = 10; 
     private GameManager GameManager;
-    public AudioClip hitBaseSound; // เสียงตอนมอนชนฐาน
+    public AudioClip hitBaseSound; 
 
     void Awake()
     {
@@ -36,11 +36,11 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} died!");
 
-        // 💥 เพิ่มคะแนนเมื่อศัตรูตาย
+      
         if (GameManager != null)
         {
             GameManager.AddScore(scoreValue);
-            //  เรียกเสียงมอนตาย
+            
             GameManager.PlayMonsterDeathSound();
         }
         
@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
                 AudioSource.PlayClipAtPoint(hitBaseSound, transform.position, 2.5f);
             }
 
-            Destroy(gameObject); // ทำลายตัวเองหลังจากชน
+            Destroy(gameObject); 
         }
     }
 }

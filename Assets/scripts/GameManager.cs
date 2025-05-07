@@ -57,12 +57,12 @@ public class GameManager : MonoBehaviour
 
         isGameOver = true;
         Time.timeScale = 0f;
-        // หยุดเพลงพื้นหลังเมื่อแพ้
+      
         if (musicSource != null)
             musicSource.Stop();
 
         
-        //  เล่นเสียงตอนแพ้
+       
         if (gameOverSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(gameOverSound);
@@ -83,10 +83,10 @@ public class GameManager : MonoBehaviour
 
         isGameOver = true;
         Time.timeScale = 0f;
-        // หยุดเพลงพื้นหลังเมื่อชนะ
+     
         if (musicSource != null)
             musicSource.Stop();
-        //  เล่นเสียงตอนชนะ
+       
         if (victorySound != null && audioSource != null)
         {
             audioSource.PlayOneShot(victorySound);

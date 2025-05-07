@@ -8,11 +8,11 @@ public class WaveController : MonoBehaviour
     private int enemiesSpawned = 0;
     private float nextSpawnTime = 0f;
     
-    private List<GameObject> aliveEnemies = new List<GameObject>(); // ✅ แบบนี้ถูก
+    private List<GameObject> aliveEnemies = new List<GameObject>(); 
 
     public bool AllEnemiesDead()
     {
-        if (currentWave == null) return false; // ป้องกัน null
+        if (currentWave == null) return false; 
 
         aliveEnemies.RemoveAll(e => e == null);
         return enemiesSpawned >= currentWave.enemyCount && aliveEnemies.Count == 0;
@@ -29,7 +29,7 @@ public class WaveController : MonoBehaviour
         currentWave = wave;
         enemiesSpawned = 0;
         nextSpawnTime = Time.time;
-        aliveEnemies = new List<GameObject>(); // reset list ทุกเวฟ
+        aliveEnemies = new List<GameObject>(); 
     }
 
     void Update()

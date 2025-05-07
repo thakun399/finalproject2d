@@ -6,7 +6,7 @@ public class Tower : MonoBehaviour
     public int maxHP = 3;
     private int currentHP;
 
-    public Image[] heartImages; // ใส่หัวใจใน Inspector
+    public Image[] heartImages; 
     public Sprite heartFull;
     public Sprite heartEmpty;
 

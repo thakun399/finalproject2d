@@ -5,8 +5,8 @@ public class SuperPower : MonoBehaviour
     public int maxHP = 5;
     private int currentHP;
 
-    // เพิ่มตัวแปร respawner ที่จะเชื่อมโยงกับ WallRespawner
-    public ItemSpawnToggle respawner;  // เปลี่ยนชื่อเป็น ItemSpawnToggle เพื่อใช้กับฟังก์ชัน
+    
+    public ItemSpawnToggle respawner;  
 
     void Start()
     {
@@ -21,12 +21,12 @@ public class SuperPower : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            // เมื่อกำแพงตาย, เรียกฟังก์ชันจาก respawner (ItemSpawnToggle) เพื่อให้มัน respawn
+          
             if (respawner != null)
             {
-                respawner.OnWallDestroyed(); // เรียกการ respawn
+                respawner.OnWallDestroyed(); 
             }
-            Destroy(gameObject); // ทำลายกำแพง
+            Destroy(gameObject); 
         }
     }
 
@@ -37,8 +37,8 @@ public class SuperPower : MonoBehaviour
             Enemy enemy = collision.GetComponent<Enemy>();
             if (enemy != null)
             {
-                TakeDamage(enemy.damage); // รับดาเมจจากศัตรู
-                // ศัตรูไม่ถูกทำลาย
+                TakeDamage(enemy.damage); 
+                
             }
         }
     }
