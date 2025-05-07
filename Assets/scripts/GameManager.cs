@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverUI;
     public GameObject victoryUI;  
     public TMP_Text finalScoreText;
-    
+    public TMP_Text victoryScoreText;
     
     
     [Header("Audio")]//กั้ง
@@ -95,8 +95,8 @@ public class GameManager : MonoBehaviour
         if (victoryUI != null)
             victoryUI.SetActive(true); 
 
-        if (finalScoreText != null)
-            finalScoreText.text = "🎉 VICTORY!\nFinal Score: " + score.ToString();  
+        if (victoryScoreText != null)
+            victoryScoreText.text = "\nFinal Score: " + score.ToString();  
 
         Debug.Log("You Win!");
     }
